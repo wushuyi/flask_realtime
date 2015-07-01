@@ -1,0 +1,20 @@
+from flask import Flask
+from flask.ext.socketio import SocketIO
+
+socketio = SocketIO()
+
+
+def create_app(debug=False):
+    """Create an application."""
+    app = Flask(__name__)
+    app.debug = debug
+    app.config['SECRET_KEY'] = 'gjr39dkjn344_!67#'
+    app.config['DEBUG'] = True
+    # app.config['SERVER_NAME'] = '0.0.0.0:5000'
+
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    socketio.init_app(app)
+    return app
+
