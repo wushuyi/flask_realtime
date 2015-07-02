@@ -1,3 +1,4 @@
+# coding:utf-8
 from flask import session
 from flask.ext.socketio import emit, join_room, leave_room
 from .. import socketio
@@ -7,7 +8,7 @@ from .. import socketio
 def joined(message):
     room = session.get('room')
     join_room(room)
-    emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
+    emit('status', {'msg': session.get('name') + u' 加入！'}, room=room)
 
 
 @socketio.on('text', namespace='/chat')
@@ -20,5 +21,5 @@ def text(message):
 def left(message):
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room)
+    emit('status', {'msg': session.get('name') + u' 离开！'}, room=room)
 

@@ -25,34 +25,6 @@ ajax.login = function (opt) {
 $el.doc = $(document);
 $el.win = $(window);
 
-//var socket;
-////$(document).ready(function () {
-//    socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-//    socket.on('connect', function () {
-//        socket.emit('joined', {});
-//    });
-//    socket.on('status', function (data) {
-//        $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
-//        $('#chat').scrollTop($('#chat')[0].scrollHeight);
-//    });
-//    socket.on('message', function (data) {
-//        $('#chat').val($('#chat').val() + data.msg + '\n');
-//        $('#chat').scrollTop($('#chat')[0].scrollHeight);
-//    });
-//    $('#text').keypress(function (e) {
-//        var code = e.keyCode || e.which;
-//        if (code == 13) {
-//            text = $('#text').val();
-//            $('#text').val('');
-//            socket.emit('text', {msg: text});
-//        }
-//    });
-//    $('#leave').on('click', function(){
-//        socket.emit('left', {});
-//    });
-////});
-//
-
 $el.page1 = $('#page1');
 $el.userInput = $('#user');
 $el.roomInput = $('#room');
@@ -109,7 +81,7 @@ $el.exitBtn.on('click', function (evt) {
 });
 
 var socket_conn = function () {
-    socket = io.connect('http://192.168.1.127:5000/chat');
+    socket = io.connect('/chat');
     socket.on('connect', function () {
         $el.page1.hide();
         $el.page2.show();
