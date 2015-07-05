@@ -1,6 +1,7 @@
 # coding:utf-8
 from flask import Flask
-from flask.ext.socketio import SocketIO
+# from flask.ext.socketio import SocketIO
+from .flask_redis_socketio import WsySocketIO as SocketIO
 
 socketio = SocketIO()
 

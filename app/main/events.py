@@ -1,25 +1,26 @@
 # coding:utf-8
-from flask import session
-from flask.ext.socketio import emit, join_room, leave_room
+from flask import session, request
+from flask.ext.socketio import join_room, leave_room
 from .. import socketio
-
+from ..flask_redis_socketio import emit
 
 @socketio.on('joined', namespace='/chat')
 def joined(message):
     room = session.get('room')
     join_room(room)
-    emit('status', {'msg': session.get('name') + u' 加入！'}, room=room)
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
     room = session.get('room')
-    emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
+    msg = {
+        'room': room,
+        'msg': session.get('name') + ' : ' + message
+    }
+    emit('say', msg)
 
 
 @socketio.on('exit', namespace='/chat')
 def left(message):
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + u' 离开！'}, room=room)
-
