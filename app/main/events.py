@@ -2,7 +2,8 @@
 from flask import session, request
 from flask.ext.socketio import join_room, leave_room
 from .. import socketio
-from ..flask_redis_socketio import emit
+from ..wsy_redis_socketio import emit
+
 
 @socketio.on('joined', namespace='/chat')
 def joined(message):

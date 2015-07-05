@@ -1,9 +1,16 @@
 # coding:utf-8
 from flask import Flask
 # from flask.ext.socketio import SocketIO
-from .flask_redis_socketio import WsySocketIO as SocketIO
+from .wsy_redis_socketio import WsySocketIO as SocketIO
+from flask.ext.kvsession import KVSessionExtension
+from simplekv.memory.redisstore import RedisStore
+from simplekv.decorator import PrefixDecorator
+from .redis_link import rc
 
+store = RedisStore(rc)
+prefixed_store = PrefixDecorator('sessions_', store)
 socketio = SocketIO()
+kvsession = KVSessionExtension()
 
 
 def create_app():
@@ -16,5 +23,6 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     socketio.init_app(app)
+    kvsession.init_app(app, prefixed_store)
     return app
 

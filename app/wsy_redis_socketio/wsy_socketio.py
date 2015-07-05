@@ -1,12 +1,10 @@
 __author__ = 'wushuyi'
 from socketio.namespace import BaseNamespace
-from flask.ext.socketio import _SocketIOMiddleware, SocketIO, \
-    emit, send, join_room, leave_room, close_room, disconnect
+from flask.ext.socketio import SocketIO
 from flask import request
 import json
-import redis
+from ..redis_link import rc
 
-rc = redis.StrictRedis()
 pubsub = rc.pubsub()
 
 
